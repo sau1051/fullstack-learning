@@ -55,8 +55,7 @@ Subtracts values left to right
 
 ## Concepts Covered
 - Rest parameters (`...args`)
-- `Array.prototype.reduce()` method
-- Using `.reduce()` for array-based calculations
+- `Array.prototype.reduce()`
 - Writing simple utility functions
 - Organizing files for daily learning
 - Executing JavaScript using Node.js
