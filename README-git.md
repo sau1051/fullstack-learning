@@ -169,3 +169,103 @@ git push
 ✅ You're now fully Git + GitHub + SSH configured like a pro.
 
 🚫 **Note:** Never commit `.ssh/id_rsa` or GitHub tokens to your public repository. Its is bad practice.
+
+
+---
+
+## ✅ Day 2: Branching, Merging, Conflict Handling
+
+### 1. Create a New Branch
+- ✅ GitHub Desktop:  
+  `Branch` > `New Branch` → name it `feature-git-advanced`
+- 💻 CLI:
+  ```bash
+  git checkout -b feature-git-advanced
+  ```
+
+---
+
+### 2. Make Changes in `feature-git-advanced`
+- ✅ GitHub Desktop:  
+  Open project in VS Code, edit `README-git.md`, save file
+- 💻 CLI:  
+  Edit files in any editor, then continue
+
+---
+
+### 3. Commit Changes
+- ✅ GitHub Desktop:  
+  Bottom-left → write commit message → Click `Commit to feature-git-advanced`
+- 💻 CLI:
+  ```bash
+  git add .
+  git commit -m "Updated Git steps for branching and merging"
+  ```
+
+---
+
+### 4. Publish the New Branch (first time only)
+- ✅ GitHub Desktop:  
+  Top-right → Click `Publish branch` (appears only once per new branch)
+- 💻 CLI:
+  ```bash
+  git push --set-upstream origin feature-git-advanced
+  ```
+
+---
+
+### 5. Switch to `main` Branch
+- ✅ GitHub Desktop:  
+  `Branch` > `main`
+- 💻 CLI:
+  ```bash
+  git checkout main
+  ```
+
+---
+
+### 6. (Optional) Simulate a Conflict
+- ✅ GitHub Desktop:  
+  Make changes in `README-git.md` in the same lines as the feature branch
+  → Commit from main
+- 💻 CLI:
+  ```bash
+  # Edit README-git.md
+  git add .
+  git commit -m "Made conflicting change in main"
+  ```
+
+---
+
+### 7. Merge the Feature Branch into Main
+- ✅ GitHub Desktop:  
+  `Branch` > `Merge into Current Branch` → select `feature-git-advanced`
+- 💻 CLI:
+  ```bash
+  git merge feature-git-advanced
+  ```
+
+---
+
+### 8. Resolve Merge Conflicts (if any)
+- ✅ GitHub Desktop:  
+  VS Code will highlight conflicts → manually edit → save file  
+  → Return to GitHub Desktop → Click `Commit merge`
+- 💻 CLI:
+  ```bash
+  # After resolving manually
+  git add .
+  git commit -m "Resolved merge conflict"
+  ```
+
+---
+
+### 9. Push Merged Main to GitHub
+- ✅ GitHub Desktop:  
+  Top-right → Click `Push origin`
+- 💻 CLI:
+  ```bash
+  git push origin main
+  ```
+
+---
