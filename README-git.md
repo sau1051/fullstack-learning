@@ -25,8 +25,8 @@ git commit -m "Day 1: sum, multiply, subtract functions with reduce"
 
 ## ✅ 3. GitHub Repository Setup
 
-- A new repository `fullstack-learning` was created on GitHub
-- Repository was initialized **without a README**
+- A new repository `fullstack-learning` was created on GitHub  
+- Repository was initialized **without a README**  
 - Repository is **public**
 
 ---
@@ -43,8 +43,8 @@ git push -u origin main
 
 ## ⚠️ 5. GitHub Authentication Issue (HTTPS)
 
-- GitHub blocked password-based authentication
-- A **Personal Access Token (PAT)** was generated manually
+- GitHub blocked password-based authentication  
+- A **Personal Access Token (PAT)** was generated manually  
 - Used in place of a password when pushing code
 
 ---
@@ -68,16 +68,16 @@ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 ```
 
 Files created:
-- `~/.ssh/id_rsa` (private key — DO NOT SHARE)
+- `~/.ssh/id_rsa` (private key — DO NOT SHARE)  
 - `~/.ssh/id_rsa.pub` (public key — safe to upload to GitHub)
 
 ---
 
 ### 🔹 b. SSH Public Key Added to GitHub
 
-- Navigated to [https://github.com/settings/keys](https://github.com/settings/keys)
-- Clicked “New SSH key”
-- Gave it a name like `My Laptop - id_rsa`
+- Navigated to [https://github.com/settings/keys](https://github.com/settings/keys)  
+- Clicked “New SSH key”  
+- Gave it a name like `My Laptop - id_rsa`  
 - Pasted the contents of `id_rsa.pub`
 
 ---
@@ -153,6 +153,90 @@ git push
 
 ---
 
+## 🛠️ SSH Troubleshooting Done on Day 2
+
+Today, SSH push was still prompting for credentials instead of using the RSA/ED25519 key. Below are the exact steps performed to fix it.
+
+---
+
+### 🔸 a. Remote Was Still HTTPS
+
+Checked using:
+
+```bash
+git remote -v
+```
+
+Output:
+```
+origin  https://github.com/sau1051/fullstack-learning.git (fetch)
+origin  https://github.com/sau1051/fullstack-learning.git (push)
+```
+
+🔁 Fixed by switching remote to SSH:
+
+```bash
+git remote set-url origin git@github.com:sau1051/fullstack-learning.git
+git remote -v
+```
+
+New output:
+```
+origin  git@github.com:sau1051/fullstack-learning.git (fetch)
+origin  git@github.com:sau1051/fullstack-learning.git (push)
+```
+
+---
+
+### 🔸 b. PowerShell Needed to Be Run as Administrator
+
+SSH agent service commands **require elevated privileges**. Opened PowerShell as **Administrator**, then executed:
+
+```powershell
+Set-Service -Name ssh-agent -StartupType Automatic
+Start-Service ssh-agent
+```
+
+This ensures the `ssh-agent` starts automatically with Windows.
+
+🧠 **Why this matters:**  
+If you skip this, then every time you restart your system:
+- The SSH agent won’t run by default  
+- Your key won’t be available for Git  
+- You’ll need to manually start the agent and re-add your key using `ssh-add`  
+
+Setting it to `Automatic` makes SSH authentication persistent and seamless across reboots.
+
+---
+
+### 🔸 c. Added ED25519 Key to Agent
+
+Instead of the default RSA key, we used the ED25519 key:
+
+```powershell
+ssh-add $env:USERPROFILE\.ssh\id_ed25519
+```
+
+Prompted for passphrase:
+```
+Enter passphrase for C:\Users\Saurabh\.ssh\id_ed25519:
+Identity added: C:\Users\Saurabh\.ssh\id_ed25519 (dhrubaiqvia@gmail.com)
+```
+
+✅ Key was successfully loaded into the agent.
+
+---
+
+### 🔸 d. Final Test – Git Push Worked via SSH
+
+```bash
+git push
+```
+
+This time it **worked silently**, confirming that SSH authentication was finally functional.
+
+---
+
 ## 🧼 Summary
 
 | Step                        | Tool       | Status |
@@ -163,17 +247,19 @@ git push
 | Switched to SSH             | Git + SSH  | ✅      |
 | Configured port fallback    | SSH config | ✅      |
 | Passphrase-free workflow    | SSH agent  | ✅      |
+| Auto-start SSH agent        | Windows    | ✅      |
 
 ---
 
 ✅ You're now fully Git + GitHub + SSH configured like a pro.
 
-🚫 **Note:** Never commit `.ssh/id_rsa` or GitHub tokens to your public repository. It is bad practice.
-
+🚫 **Note:** Never commit `.ssh/id_rsa`, `.ssh/id_ed25519`, or GitHub tokens to your public repository. It is bad practice.
 
 ---
 
-## ✅ Day 2: Branching, Merging, Conflict Handling
+# 📘 Day 2: Branching, Merging, Conflict Handling
+
+---
 
 ### 1. Create a New Branch
 - ✅ GitHub Desktop:  
@@ -225,9 +311,19 @@ git push
 
 ---
 
-### 6. (Optional) Simulate a Conflict
+### 6. Pull latest main from GitHub (if others are working too)
 - ✅ GitHub Desktop:  
-  Make changes in `README-git.md` in the same lines as the feature branch
+  `Fetch Origin`
+- 💻 CLI:
+  ```bash
+  git pull origin main
+  ```
+
+---
+
+### 7. (Optional) Simulate a Conflict
+- ✅ GitHub Desktop:  
+  Make changes in `README-git.md` in the same lines as the feature branch  
   → Commit from main
 - 💻 CLI:
   ```bash
@@ -238,7 +334,7 @@ git push
 
 ---
 
-### 7. Merge the Feature Branch into Main
+### 8. Merge the Feature Branch into Main
 - ✅ GitHub Desktop:  
   `Branch` > `Merge into Current Branch` → select `feature-git-advanced`
 - 💻 CLI:
@@ -248,7 +344,22 @@ git push
 
 ---
 
-### 8. Resolve Merge Conflicts (if any)
+### 9. Resolve Merge Conflicts (if any)
+
+> ⚠️ A merge conflict occurs when the same lines of code were changed in two branches.
+
+When this happens, Git inserts these markers in your file:
+
+```
+<<<<<<< HEAD
+Your changes from main
+=======
+Their changes from feature branch
+>>>>>>> feature-git-advanced
+```
+
+You must **manually edit the file**, keeping the content you want, and removing the conflict markers. Then:
+
 - ✅ GitHub Desktop:  
   VS Code will highlight conflicts → manually edit → save file  
   → Return to GitHub Desktop → Click `Commit merge`
@@ -261,7 +372,7 @@ git push
 
 ---
 
-### 9. Push Merged Main to GitHub
+### 10. Push Merged Main to GitHub
 - ✅ GitHub Desktop:  
   Top-right → Click `Push origin`
 - 💻 CLI:
