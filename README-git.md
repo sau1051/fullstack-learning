@@ -169,3 +169,92 @@ git push
 ✅ You're now fully Git + GitHub + SSH configured like a pro.
 
 🚫 **Note:** Never commit `.ssh/id_rsa` or GitHub tokens to your public repository.
+
+
+# 📘 Git + GitHub Setup – Day 02 : Branching, Merging, Conflict Handling
+---
+
+### 1. Create a New Branch
+```bash
+git checkout -b feature-git-advanced
+```
+
+### 2. Make Changes in `feature-git-advanced`
+- Edit `README-git.md` (add these Day 2 steps)
+- Save the file
+
+### 3. Commit Changes
+```bash
+git add .
+git commit -m "Updated Git steps for branching and merging"
+```
+
+### 4. Push the Branch to GitHub
+```bash
+git push origin feature-git-advanced
+```
+
+---
+
+### (Optional) 5. Simulate a Conflict
+
+#### a. Switch to `main` Branch
+```bash
+git checkout main
+```
+
+#### b. Edit the same part of `README-git.md` and save  
+(Example: change a line already modified in the feature branch)
+
+#### c. Commit the Conflict-Creating Change
+```bash
+git add .
+git commit -m "Made conflicting change in main"
+```
+
+---
+
+### 6. Merge the Feature Branch into Main
+```bash
+git merge feature-git-advanced
+```
+
+#### If a conflict occurs:
+- VS Code will show conflict markers:
+  ```md
+  <<<<<<< HEAD
+  main branch version
+  =======
+  feature branch version
+  >>>>>>> feature-git-advanced
+  ```
+- Manually resolve the conflict
+- Then run:
+```bash
+git add .
+git commit -m "Resolved merge conflict"
+```
+
+---
+
+### 7. Push Final Merged Main to GitHub
+```bash
+git push origin main
+```
+
+---
+
+## 🟦 GitHub Desktop Equivalents (Day 2)
+
+| Task                      | GitHub Desktop Action                      |
+|---------------------------|--------------------------------------------|
+| Create new branch         | Branch > New Branch                        |
+| Switch branch             | Branch > main                              |
+| Make commit               | Enter message > Click `Commit` button      |
+| Push changes              | Click `Push origin` (top bar)              |
+| Pull latest               | Repository > Pull                          |
+| Merge branches            | Branch > Merge into Current Branch         |
+| Resolve conflict          | VS Code will highlight > manually resolve |
+| Commit after resolving    | Commit from GitHub Desktop as usual        |
+
+---
