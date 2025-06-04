@@ -13,7 +13,7 @@ console.log(userName, age, city);
 // ============================
 // ✅ 2. Functions
 // ============================
-console.log("PRACTICE Functions")
+console.log("PRACTICE Functions");
 function greet(user) {
   return "Hello, " + user;
 }
