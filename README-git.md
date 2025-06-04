@@ -168,7 +168,7 @@ git push
 
 ✅ You're now fully Git + GitHub + SSH configured like a pro.
 
-🚫 **Note:** Never commit `.ssh/id_rsa` or GitHub tokens to your public repository.
+🚫 **Note:** Never commit `.ssh/id_rsa` or GitHub tokens to your public repository. Its is bad practice.
 
 
 ---
