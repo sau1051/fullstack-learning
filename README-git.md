@@ -168,7 +168,7 @@ git push
 
 ✅ You're now fully Git + GitHub + SSH configured like a pro.
 
-🚫 **Note:** Never commit `.ssh/id_rsa` or GitHub tokens to your public repository. Its is bad practice.
+🚫 **Note:** Never commit `.ssh/id_rsa` or GitHub tokens to your public repository. It is bad practice.
 
 
 ---
@@ -207,6 +207,7 @@ git push
 ### 4. Publish the New Branch (first time only)
 - ✅ GitHub Desktop:  
   Top-right → Click `Publish branch` (appears only once per new branch)
+  💡 Note: If GitHub Desktop hangs or fails to publish, use the CLI instead.
 - 💻 CLI:
   ```bash
   git push --set-upstream origin feature-git-advanced
