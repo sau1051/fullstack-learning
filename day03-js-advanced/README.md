@@ -23,3 +23,10 @@ Use the following PowerShell command inside this folder to create a new `.js` fi
 
 ```powershell
 New-Item -Name "07-event-loop-basics.js" -ItemType "File"
+
+## 🔄 Renaming Files with PowerShell
+
+To rename a file in PowerShell, use the following command:
+
+```powershell
+Rename-Item -Path "old-filename.js" -NewName "new-filename.js"
